@@ -13,7 +13,7 @@ namespace ljt
         Level level; // 日志等级
         std::string logger_name; // 日志名字
         std::string payload; // 有效载荷
-        std::chrono::system_clock::time_point time; // 时刻
+        std::chrono::system_clock::time_point time; // 时刻[系统时间]
         std::thread::id tid; // 线程id
     };
 }
