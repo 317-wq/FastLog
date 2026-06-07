@@ -3,8 +3,8 @@
 
 #include <gtest/gtest.h>
 
-#include "../include/log/file_sink.h"
-#include "../include/log/stdout_sink.h"
+#include "../include/sink/file_sink.h"
+#include "../include/sink/stdout_sink.h"
 
 using namespace ljt;
 
