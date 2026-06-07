@@ -2,7 +2,7 @@
 
 namespace ljt
 {
-    enum class Level
+    enum class Level : std::uint8_t
     {
         TRACE = 0,
         DEBUG,
@@ -11,4 +11,8 @@ namespace ljt
         ERROR,
         CRITICAL
     };
+    inline bool operator<(Level l, Level r) noexcept
+    {
+        return static_cast<int>(l) < static_cast<int>(r);
+    }
 }
