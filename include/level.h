@@ -2,7 +2,6 @@
 
 namespace ljt
 {
-
     enum class Level
     {
         TRACE = 0,
@@ -12,5 +11,4 @@ namespace ljt
         ERROR,
         CRITICAL
     };
-
 }
