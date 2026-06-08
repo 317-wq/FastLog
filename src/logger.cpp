@@ -8,7 +8,8 @@ namespace ljt
     {
     }
 
-    void Logger::log(Level level, const std::string &msg)
+    void Logger::log(Level level, const std::string &msg,
+                     const char* file, int line)
     {
         // 过滤等级比较
         if (level < level_.load())
@@ -22,39 +23,11 @@ namespace ljt
         log_msg.payload = msg;                           // 有效载荷
         log_msg.time = std::chrono::system_clock::now(); // 系统时刻
         log_msg.tid = std::this_thread::get_id();        // 对应线程id
+        log_msg.source_file = file;                      // 源文件名
+        log_msg.source_line = line;                      // 源文件行号
         std::string formatted = formatter_.format(log_msg);
 
         sink_->log(formatted); // 运行时多态
-    }
-
-    void Logger::trace(const std::string &msg)
-    {
-        log(Level::TRACE, msg);
-    }
-
-    void Logger::debug(const std::string &msg)
-    {
-        log(Level::DEBUG, msg);
-    }
-
-    void Logger::info(const std::string &msg)
-    {
-        log(Level::INFO, msg);
-    }
-
-    void Logger::warn(const std::string &msg)
-    {
-        log(Level::WARN, msg);
-    }
-
-    void Logger::error(const std::string &msg)
-    {
-        log(Level::ERROR, msg);
-    }
-
-    void Logger::critical(const std::string &msg)
-    {
-        log(Level::CRITICAL, msg);
     }
 
     void Logger::setLevel(Level level)

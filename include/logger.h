@@ -16,18 +16,10 @@ namespace ljt
         Logger(std::string name, SinkPtr sink);
 
         virtual ~Logger() = default;
-        
-        // 不同日志等级的输出 -> 快捷输出
-        virtual void trace(const std::string &msg);
-        virtual void debug(const std::string &msg);
-        virtual void info(const std::string &msg);
-        virtual void warn(const std::string &msg);
-        virtual void error(const std::string &msg);
-        virtual void critical(const std::string &msg);
 
-    protected:
-        // 子类可重写的核心日志接口 (NVI模式)
-        virtual void log(Level level, const std::string &msg);
+        // ---- 唯一日志入口：必须带 file/line，由宏 LOG_*() 自动注入 ----
+        // 使用方式: LOG_TRACE / LOG_DEBUG / LOG_INFO / LOG_WARN / LOG_ERROR / LOG_CRITICAL
+        virtual void log(Level level, const std::string &msg, const char* file, int line);
 
     public:
         // 设置过滤等级
