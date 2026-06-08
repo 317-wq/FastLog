@@ -34,10 +34,15 @@ namespace ljt
         // 获取过滤等级
         Level getLevel() const;
 
+        // 获取日志名字
+        const std::string& name() const;
+
     private:
         std::string name_; // 日志文件名字
         SinkPtr sink_; // 输出到哪里[基类] -> 运行时多态
         Formatter formatter_; // 格式化器
         std::atomic<Level> level_{Level::TRACE}; // 日志过滤等级
     };
+
+    using LoggerPtr = std::shared_ptr<Logger>;
 }

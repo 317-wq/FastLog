@@ -68,4 +68,9 @@ namespace ljt
         // 获取原子变量的值
         return level_.load(/*std::memory_order_relaxed*/);
     }
+    
+    const std::string& Logger::name() const
+    {
+        return name_;
+    }
 }
