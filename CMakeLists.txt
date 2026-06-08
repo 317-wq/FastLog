@@ -72,8 +72,33 @@ find_package(GTest REQUIRED)
 #     COMMAND test_logger
 # )
 
-add_executable(test_logger_manager
-    tests/test_logger_manager.cpp
+# add_executable(test_logger_manager
+#     tests/test_logger_manager.cpp
+#     src/logger.cpp
+#     src/formatter.cpp
+#     src/sink/file_sink.cpp
+#     src/sink/stdout_sink.cpp
+#     src/logger_manager.cpp
+# )
+
+# target_include_directories(
+#     test_logger_manager
+#     PRIVATE include
+# )
+
+# target_link_libraries(
+#     test_logger_manager
+#     GTest::gtest
+#     GTest::gtest_main
+# )
+
+# add_test(
+#     NAME LoggerManagerTest
+#     COMMAND test_logger_manager
+# )
+
+add_executable(test_blocking_queue
+    tests/test_blocking_queue.cpp
     src/logger.cpp
     src/formatter.cpp
     src/sink/file_sink.cpp
@@ -82,17 +107,18 @@ add_executable(test_logger_manager
 )
 
 target_include_directories(
-    test_logger_manager
+    test_blocking_queue
     PRIVATE include
 )
 
 target_link_libraries(
-    test_logger_manager
+    test_blocking_queue
     GTest::gtest
     GTest::gtest_main
+    pthread
 )
 
 add_test(
-    NAME LoggerManagerTest
-    COMMAND test_logger_manager
+    NAME LoggerBlockingQueueTest
+    COMMAND test_blocking_queue
 )
