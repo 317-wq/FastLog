@@ -48,26 +48,51 @@ find_package(GTest REQUIRED)
 #     COMMAND test_sink
 # )
 
-add_executable(test_logger
-    tests/test_logger.cpp
+# add_executable(test_logger
+#     tests/test_logger.cpp
+#     src/logger.cpp
+#     src/formatter.cpp
+#     src/sink/file_sink.cpp
+#     src/sink/stdout_sink.cpp
+# )
+
+# target_include_directories(
+#     test_logger
+#     PRIVATE include
+# )
+
+# target_link_libraries(
+#     test_logger
+#     GTest::gtest
+#     GTest::gtest_main
+# )
+
+# add_test(
+#     NAME LoggerTest
+#     COMMAND test_logger
+# )
+
+add_executable(test_logger_manager
+    tests/test_logger_manager.cpp
     src/logger.cpp
     src/formatter.cpp
     src/sink/file_sink.cpp
     src/sink/stdout_sink.cpp
+    src/logger_manager.cpp
 )
 
 target_include_directories(
-    test_logger
+    test_logger_manager
     PRIVATE include
 )
 
 target_link_libraries(
-    test_logger
+    test_logger_manager
     GTest::gtest
     GTest::gtest_main
 )
 
 add_test(
-    NAME LoggerTest
-    COMMAND test_logger
+    NAME LoggerManagerTest
+    COMMAND test_logger_manager
 )
