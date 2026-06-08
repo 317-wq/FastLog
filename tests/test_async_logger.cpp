@@ -5,6 +5,7 @@
 #include <gtest/gtest.h>
 
 #include "../include/async_logger.h"
+#include "../include/macros.h"
 #include "../include/sink/file_sink.h"
 #include "../include/sink/stdout_sink.h"
 
@@ -24,7 +25,7 @@ TEST(AsyncLoggerTest, BasicWrite)
             sink,
             1);
 
-        logger.info("hello async");
+        LOG_INFO(logger, "hello async");
 
         std::this_thread::sleep_for(
             std::chrono::milliseconds(200));
@@ -65,9 +66,9 @@ TEST(AsyncLoggerTest, LevelFilter)
         logger.setLevel(
             Level::WARN);
 
-        logger.info("info");
+        LOG_INFO(logger, "info");
 
-        logger.error("error");
+        LOG_ERROR(logger, "error");
 
         std::this_thread::sleep_for(
             std::chrono::milliseconds(200));
@@ -118,8 +119,7 @@ TEST(AsyncLoggerTest, MassiveLog)
 
         for (int i = 0; i < N; ++i)
         {
-            logger.info(
-                "message");
+            LOG_INFO(logger, "message");
         }
 
         std::this_thread::sleep_for(
@@ -179,8 +179,7 @@ TEST(AsyncLoggerTest, MultiThreadWrite)
                          j < LOG_NUM;
                          ++j)
                     {
-                        logger.info(
-                            "multi");
+                        LOG_INFO(logger, "multi");
                     }
                 });
         }
@@ -230,6 +229,6 @@ TEST(AsyncLoggerTest, DestroyLogger)
                 sink,
                 2);
 
-            logger.info("hello");
+            LOG_INFO(logger, "hello");
         });
 }

@@ -51,6 +51,7 @@
 #include <gtest/gtest.h>
 
 #include "../include/logger.h"
+#include "../include/macros.h"
 #include "../include/sink/file_sink.h"
 #include "../include/sink/stdout_sink.h"
 
@@ -72,9 +73,9 @@ TEST(LevelFilterTest, FilterInfo)
     logger.setLevel(
         Level::WARN);
 
-    logger.info("info message");
+    LOG_INFO(logger, "info message");
 
-    logger.warn("warn message");
+    LOG_WARN(logger, "warn message");
 
     sink->flush();
 
