@@ -42,9 +42,15 @@ namespace ljt
             << std::put_time(&tm, "%Y-%m-%d %H:%M:%S")
             << "]"
             << "[" << levelToString(msg.level) << "]"
-            << "[" << msg.tid << "]"
-            << " "
-            << msg.payload;
+            << "[" << msg.tid << "]";
+
+        // 如果有源文件名信息，则追加 [file:line]
+        if (msg.source_file && msg.source_file[0] != '\0')
+        {
+            oss << "[" << msg.source_file << ":" << msg.source_line << "]";
+        }
+
+        oss << " " << msg.payload;
         return oss.str();
     }
 }
