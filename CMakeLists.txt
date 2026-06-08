@@ -123,29 +123,57 @@ find_package(GTest REQUIRED)
 #     COMMAND test_blocking_queue
 # )
 
-add_executable(test_thread_pool
-    tests/test_thread_pool.cpp
+# add_executable(test_thread_pool
+#     tests/test_thread_pool.cpp
+#     src/logger.cpp
+#     src/formatter.cpp
+#     src/sink/file_sink.cpp
+#     src/sink/stdout_sink.cpp
+#     src/logger_manager.cpp
+#     src/thread_pool.cpp
+# )
+
+# target_include_directories(
+#     test_thread_pool
+#     PRIVATE include
+# )
+
+# target_link_libraries(
+#     test_thread_pool
+#     GTest::gtest
+#     GTest::gtest_main
+#     pthread
+# )
+
+# add_test(
+#     NAME test_thread_pool_test
+#     COMMAND test_thread_pool
+# )
+
+add_executable(test_async_logger
+    tests/test_async_logger.cpp
     src/logger.cpp
     src/formatter.cpp
     src/sink/file_sink.cpp
     src/sink/stdout_sink.cpp
     src/logger_manager.cpp
     src/thread_pool.cpp
+    src/async_logger.cpp
 )
 
 target_include_directories(
-    test_thread_pool
+    test_async_logger
     PRIVATE include
 )
 
 target_link_libraries(
-    test_thread_pool
+    test_async_logger
     GTest::gtest
     GTest::gtest_main
     pthread
 )
 
 add_test(
-    NAME test_thread_pool_test
-    COMMAND test_thread_pool
+    NAME test_async_logger
+    COMMAND test_async_logger
 )
