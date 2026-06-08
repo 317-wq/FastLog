@@ -37,7 +37,7 @@ namespace ljt
         LoggerManager &operator=(const LoggerManager &) = delete;
 
     private:
-        std::unordered_map<std::string, LoggerPtr> loggers_;  // 文件名 -> 管理这个文件日志的logger对象
-        std::mutex mutex_; // 保护logger对象的一系列相关操作
+        std::unordered_map<std::string, LoggerPtr> loggers_; // 文件名 -> 管理这个文件日志的logger对象
+        std::mutex mutex_;                                   // 保护logger对象的一系列相关操作
     };
 }
