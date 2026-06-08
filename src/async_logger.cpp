@@ -39,7 +39,7 @@ namespace ljt
         }
     }
 
-    void AsyncLogger::log(Level level, const std::string &msg)
+    void AsyncLogger::log(Level level, const std::string &msg, const char* file, int line)
     {
         if (level < getLevel())
             return;
@@ -50,6 +50,8 @@ namespace ljt
         log_msg.payload = msg;
         log_msg.time = std::chrono::system_clock::now();
         log_msg.tid = std::this_thread::get_id();
+        log_msg.source_file = file;
+        log_msg.source_line = line;
 
         queue_.push(log_msg);
     }
