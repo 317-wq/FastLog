@@ -44,15 +44,11 @@ namespace ljt
         if (level < getLevel())
             return;
 
-        LogMessage log_msg;
-        log_msg.level = level;
-        log_msg.logger_name = name();
-        log_msg.payload = msg;
-        log_msg.time = std::chrono::system_clock::now();
-        log_msg.tid = std::this_thread::get_id();
-        log_msg.source_file = file;
-        log_msg.source_line = line;
+        auto log_msg = buildLogMessage(level, msg, file, line);
 
-        queue_.push(log_msg);
+        // 回溯缓存
+        pushBacktrace(log_msg);
+
+        queue_.push(std::move(log_msg));
     }
 }
