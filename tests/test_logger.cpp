@@ -118,3 +118,40 @@ TEST(LevelFilterTest, SetGetLevel)
         logger.getLevel(),
         Level::ERROR);
 }
+
+TEST(LoggerTest, SetPattern)
+{
+    const std::string filename = "pattern_test.log";
+
+    {
+        auto sink = std::make_shared<FileSink>(filename);
+        Logger logger("pt", sink);
+
+        logger.setPattern("--> %v <--"); // 自定义格式
+
+        LOG_INFO(logger, "custom pattern");
+        sink->flush();
+    }
+
+    std::ifstream ifs(filename);
+    ASSERT_TRUE(ifs.is_open());
+
+    std::string content;
+    std::string line;
+    while (std::getline(ifs, line))
+        content += line + "\n";
+
+    EXPECT_NE(content.find("--> custom pattern <--"), std::string::npos);
+
+    ifs.close();
+    std::remove(filename.c_str());
+}
+
+TEST(LoggerTest, FlushDoesNotCrash)
+{
+    auto sink = std::make_shared<StdoutSink>();
+    Logger logger("ft", sink);
+
+    LOG_INFO(logger, "flush test");
+    EXPECT_NO_THROW(logger.flush());
+}
