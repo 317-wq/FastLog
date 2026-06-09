@@ -30,6 +30,25 @@ namespace ljt
         // 删除对应的logger对象
         void dropLogger(const std::string &name);
 
+        // ---- 批量操作 ----
+
+        /// 设置所有已注册 Logger 的过滤等级
+        void setLevelAll(Level level);
+
+        /// 刷新所有已注册 Logger 的 Sink
+        void flushAll();
+
+        /// 对所有已注册 Logger 执行自定义操作
+        template <typename Func>
+        void applyAll(Func &&func)
+        {
+            std::lock_guard<std::mutex> lock(mutex_);
+            for (auto &[name, logger] : loggers_)
+            {
+                func(logger);
+            }
+        }
+
     private:
         LoggerManager() = default;
         // 禁止拷贝构造，赋值构造

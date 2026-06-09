@@ -40,4 +40,20 @@ namespace ljt
             return;
         loggers_.erase(name);
     }
+
+    void LoggerManager::setLevelAll(Level level)
+    {
+        applyAll([level](const LoggerPtr &logger)
+        {
+            logger->setLevel(level);
+        });
+    }
+
+    void LoggerManager::flushAll()
+    {
+        applyAll([](const LoggerPtr &logger)
+        {
+            logger->flush();
+        });
+    }
 }
