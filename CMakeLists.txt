@@ -13,7 +13,11 @@ set(COMMON_SRC
     src/formatter.cpp
     src/sink/file_sink.cpp
     src/sink/stdout_sink.cpp
+    src/sink/color_stdout_sink.cpp
+    src/sink/rotating_file_sink.cpp
+    src/flush_policy.cpp
     src/logger_manager.cpp
+    src/default_logger.cpp
 )
 
 # ============================================================
@@ -50,6 +54,53 @@ target_link_libraries(test_sink
 )
 
 add_test(NAME SinkTest COMMAND test_sink)
+
+# --- test_color_stdout_sink ---
+add_executable(test_color_stdout_sink
+    tests/test_color_stdout_sink.cpp
+    src/sink/color_stdout_sink.cpp
+)
+
+target_include_directories(test_color_stdout_sink PRIVATE include)
+
+target_link_libraries(test_color_stdout_sink
+    GTest::gtest
+    GTest::gtest_main
+)
+
+add_test(NAME ColorStdoutSinkTest COMMAND test_color_stdout_sink)
+
+# --- test_rotating_file_sink ---
+add_executable(test_rotating_file_sink
+    tests/test_rotating_file_sink.cpp
+    src/sink/rotating_file_sink.cpp
+)
+
+target_include_directories(test_rotating_file_sink PRIVATE include)
+
+target_link_libraries(test_rotating_file_sink
+    GTest::gtest
+    GTest::gtest_main
+)
+
+add_test(NAME RotatingFileSinkTest COMMAND test_rotating_file_sink)
+
+# --- test_flush_policy ---
+add_executable(test_flush_policy
+    tests/test_flush_policy.cpp
+    src/flush_policy.cpp
+    src/sink/file_sink.cpp
+    src/sink/stdout_sink.cpp
+)
+
+target_include_directories(test_flush_policy PRIVATE include)
+
+target_link_libraries(test_flush_policy
+    GTest::gtest
+    GTest::gtest_main
+)
+
+add_test(NAME FlushPolicyTest COMMAND test_flush_policy)
 
 # --- test_logger ---
 add_executable(test_logger
@@ -129,6 +180,21 @@ target_link_libraries(test_async_logger
 )
 
 add_test(NAME AsyncLoggerTest COMMAND test_async_logger)
+
+# --- test_default_logger ---
+add_executable(test_default_logger
+    tests/test_default_logger.cpp
+    ${COMMON_SRC}
+)
+
+target_include_directories(test_default_logger PRIVATE include)
+
+target_link_libraries(test_default_logger
+    GTest::gtest
+    GTest::gtest_main
+)
+
+add_test(NAME DefaultLoggerTest COMMAND test_default_logger)
 
 # ============================================================
 # 性能压测 (benchmark)
