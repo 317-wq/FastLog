@@ -10,7 +10,6 @@
 
 namespace ljt
 {
-
     class AsyncLogger : public Logger
     {
     public:

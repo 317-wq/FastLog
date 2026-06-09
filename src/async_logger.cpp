@@ -34,7 +34,7 @@ namespace ljt
             if (queue_.pop(msg))
             {
                 auto formatted = formatter_.format(msg);
-                sink_->log(formatted);
+                sink_->log(msg.level, formatted);
             }
         }
     }
