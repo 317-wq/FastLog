@@ -2,5 +2,6 @@ build
 .claude
 logs
 docs/interview.md
+docs/mindMap.md
 CLAUDE.md
 Testing
