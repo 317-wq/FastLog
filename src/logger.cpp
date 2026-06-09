@@ -27,7 +27,7 @@ namespace ljt
         log_msg.source_line = line;                      // 源文件行号
         std::string formatted = formatter_.format(log_msg);
 
-        sink_->log(formatted); // 运行时多态
+        sink_->log(level, formatted); // 运行时多态，传递等级供 Sink 差异化处理
     }
 
     void Logger::setLevel(Level level)
