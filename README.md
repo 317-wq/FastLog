@@ -104,7 +104,3 @@ ctest                  # 14 套测试
 ./bench_tps            # 性能压测
 ./examples/example_01  # 运行示例
 ```
-
-## License
-
-MIT
