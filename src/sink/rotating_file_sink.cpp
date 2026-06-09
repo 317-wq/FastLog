@@ -3,6 +3,7 @@
 #include <cstdio>
 #include <fstream>
 #include <stdexcept>
+#include <sys/stat.h>
 
 namespace ljt
 {
@@ -11,6 +12,17 @@ namespace ljt
     {
         std::ifstream ifs(path);
         return ifs.good();
+    }
+
+    /// 确保路径的父目录存在
+    static void ensureParentDir(const std::string &path)
+    {
+        std::size_t pos = path.find_last_of('/');
+        if (pos != std::string::npos)
+        {
+            std::string dir = path.substr(0, pos);
+            mkdir(dir.c_str(), 0755);
+        }
     }
 
     RotatingFileSink::RotatingFileSink(const std::string &base_path,
@@ -41,6 +53,7 @@ namespace ljt
 
     void RotatingFileSink::openCurrentFile()
     {
+        ensureParentDir(base_path_);
         ofs_.open(base_path_, std::ios::app);
         if (!ofs_.is_open())
         {
