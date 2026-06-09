@@ -15,6 +15,8 @@ set(COMMON_SRC
     src/sink/stdout_sink.cpp
     src/sink/color_stdout_sink.cpp
     src/sink/rotating_file_sink.cpp
+    src/sink/dist_sink.cpp
+    src/backtracer.cpp
     src/flush_policy.cpp
     src/logger_manager.cpp
     src/default_logger.cpp
@@ -84,6 +86,52 @@ target_link_libraries(test_rotating_file_sink
 )
 
 add_test(NAME RotatingFileSinkTest COMMAND test_rotating_file_sink)
+
+# --- test_dist_sink ---
+add_executable(test_dist_sink
+    tests/test_dist_sink.cpp
+    src/sink/dist_sink.cpp
+    src/sink/file_sink.cpp
+    src/sink/stdout_sink.cpp
+)
+
+target_include_directories(test_dist_sink PRIVATE include)
+
+target_link_libraries(test_dist_sink
+    GTest::gtest
+    GTest::gtest_main
+)
+
+add_test(NAME DistSinkTest COMMAND test_dist_sink)
+
+# --- test_circular_queue ---
+add_executable(test_circular_queue
+    tests/test_circular_queue.cpp
+)
+
+target_include_directories(test_circular_queue PRIVATE include)
+
+target_link_libraries(test_circular_queue
+    GTest::gtest
+    GTest::gtest_main
+)
+
+add_test(NAME CircularQueueTest COMMAND test_circular_queue)
+
+# --- test_backtracer ---
+add_executable(test_backtracer
+    tests/test_backtracer.cpp
+    ${COMMON_SRC}
+)
+
+target_include_directories(test_backtracer PRIVATE include)
+
+target_link_libraries(test_backtracer
+    GTest::gtest
+    GTest::gtest_main
+)
+
+add_test(NAME BacktracerTest COMMAND test_backtracer)
 
 # --- test_flush_policy ---
 add_executable(test_flush_policy
@@ -210,4 +258,10 @@ target_include_directories(bench_tps PRIVATE include)
 
 target_link_libraries(bench_tps
     pthread
+    stdc++fs
 )
+
+# ============================================================
+# 示例程序
+# ============================================================
+add_subdirectory(examples)
