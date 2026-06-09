@@ -1,11 +1,10 @@
 #pragma once
 
 #include "logger.h"
-#include "sink/stdout_sink.h"
 
 namespace ljt
 {
-    /// 获取默认全局 Logger（首次调用时自动创建，默认输出到 stdout）
+    /// 获取默认全局 Logger（首次调用时自动创建，默认彩色输出到 stdout）
     Logger& defaultLogger();
 
     /// 设置默认 Logger 的过滤等级
